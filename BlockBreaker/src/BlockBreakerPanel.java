@@ -57,24 +57,24 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 			p.y += 1;
 			if (p.intersects(paddle) && !p.destroyed) {
 				p.destroyed = true;
-				ball.add(new Block(paddle.dx + 75, 437, 25, 25, "ball.png"));
+				ball.add(new Block(paddle.x + 75, 437, 25, 25, "ball.png"));
 			}
 		}
 		for (Block ba : ball) {
 			ba.x += ba.dx;
-			if (ba.x > (getWidth() -size) && ba.dx > 0 || ba.x < 0)
+			if (ba.x > (getWidth() - size) && ba.dx > 0 || ba.x < 0)
 				ba.dx *= -1;
 			if (ba.y < 0 || ba.intersects(paddle))
 				ba.dy *= -1;
 			ba.y += ba.dy;
 			for (Block b : blocks) {
-				if (b.left.intersects(ba) || b.right.intersects(ba) && !b.destroyed) {
+				if ((b.left.intersects(ba) || b.right.intersects(ba)) && !b.destroyed) {
 					ba.dx *= -1;
 					b.destroyed = true;
 					if (b.powerup)
 						powerup.add(new Block(b.x, b.y, 25, 19, "extra.png"));
 				}
-				if (ba.intersects(b) && !b.destroyed) {
+				else if (ba.intersects(b) && !b.destroyed) {
 					b.destroyed = true;
 					ba.dy *= -1;
 					if (b.powerup)
@@ -102,13 +102,13 @@ public class BlockBreakerPanel extends JPanel implements KeyListener {
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
 	}
